@@ -1,0 +1,9 @@
+name: FiberPool
+version: 0.1.0
+
+authors:
+  - your-name-here <your-email-here>
+
+crystal: 0.28.0
+
+license: MIT
