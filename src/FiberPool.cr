@@ -15,42 +15,39 @@ module FiberPool
       {% end %}
     end
 
-    getter logger = Logger.new(STDERR, level: default_severity_level)
-    @channel = Channel(Nil).new
+    @logger = Logger.new(STDERR, level: default_severity_level)
+    @channel = Channel(Nil).new(1)
     @jobs = Deque(Tuple(Proc(T, Nil), T)).new
+    @fibers = [] of Fiber
 
     def worker
       spawn do
-        logger.info "Fiber launched"
+        @logger.info "Fiber launched"
         loop do
-          @channel.receive
-          logger.debug "Task starting..."
+          @channel.receive if @jobs.empty?
+          @logger.debug "Task starting..."
           job = @jobs.shift
           job[0].call(job[1])
-          logger.debug "Task finished..."
+          @logger.debug "Task finished..."
         end
-        logger.info "Fiber killed"
+        @logger.info "Fiber killed"
       end
     end
 
     def initialize(nb_of_fibers : Int32)
       puts typeof(@jobs)
-      nb_of_fibers.times { worker }
+      nb_of_fibers.times { @fibers.push(worker) }
     end
-
 
     def finalize
-    end
 
-    def job(args)
-      yield *args
-      puts "hello"
     end
 
     def add_job(*args, &block : T -> Nil)
       @jobs.push({block, args})
-      logger.debug "Job pushed"
-      @channel.send(nil)
+      puts "Size #{@jobs.size}"
+      @logger.debug "Job pushed"
+      @channel.send(nil) if @channel.empty?
     end
 
     def size()
@@ -61,7 +58,7 @@ module FiberPool
     #
     # NOTE: When building in release mode, the severity is by default at Logger::ERROR. Otherwise, it is set by default at Logger::INFO
     def verbose_level=(level : Logger::Severity)
-      logger.level = level
+      @logger.level = level
     end
 
   end
