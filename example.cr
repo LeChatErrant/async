@@ -7,8 +7,9 @@ fiber_pool.verbose_level = Logger::DEBUG
 5.times do
   fiber_pool.add_job(1, "hello") do |args|
     args[0].times { puts args[1] }
-    sleep 3.seconds
+    sleep 2.seconds
   end
+  puts "Nb of jobs queued : #{fiber_pool.size}"
 end
 
 10.times { puts "dab" }
@@ -20,6 +21,7 @@ sleep 5
     puts "STARFOULLAAAAAAH"
     sleep 1.seconds
   end
+  puts "Nb of jobs queued : #{fiber_pool.size}"
 end
 
 sleep

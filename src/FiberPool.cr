@@ -45,9 +45,8 @@ module FiberPool
 
     def add_job(*args, &block : T -> Nil)
       @jobs.push({block, args})
-      puts "Size #{@jobs.size}"
-      @logger.debug "Job pushed"
-      @channel.send(nil) if @channel.empty?
+      @logger.debug "Job added in queue"
+      @channel.send(nil) if @jobs.empty?
     end
 
     def size()
