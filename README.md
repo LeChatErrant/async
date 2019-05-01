@@ -15,7 +15,7 @@ Hello guys! ;)
 
 This little baby is still under heavy development. You can see my roadmap below!
 
-This will be updated whith the release of a stable version
+This will be updated with the release of a stable version
 
 
 
