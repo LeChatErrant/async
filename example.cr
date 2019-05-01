@@ -12,16 +12,17 @@ fiber_pool.verbose_level = Logger::DEBUG
   puts "Nb of jobs queued : #{fiber_pool.size}"
 end
 
-10.times { puts "dab" }
-
-sleep 5
-
-3.times do
-  fiber_pool.add_job(1, "hello") do |args|
-    puts "STARFOULLAAAAAAH"
-    sleep 1.seconds
-  end
-  puts "Nb of jobs queued : #{fiber_pool.size}"
+def test_function(x : Tuple(Int32, String))
+  puts "I'm a test function!"
 end
+
+#fiber_pool.add_job(0, "useless arg") &->test_function
+
+# def foo(*args)
+#   puts typeof(args)
+# end
+
+# foo
+
 
 sleep
