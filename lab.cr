@@ -1,31 +1,73 @@
 def test(x, y)
   puts x
   puts y
+  return "hello"
 end
 
 
-class Test(*T)
+abstract class IJob
+  abstract def initialize
+  abstract def call(args)
+end
 
-#  @jobs = Deque(Proc(*(typeof (T), Nil)).new
-@jobs = Dequeue(Tuple(*T))
+class Job(T, K) < IJob
+
+  def initialize(@job : T)
+  end
+
+  def call(args : K)
+    @job.call *args
+  end
+end
+
+class FiberPool
+  @jobs = Deque(IJob).new
 
   def initialize
-    puts typeof(T)
   end
 
-  def add_job()
-    puts d
+  def add_job(func, *args)
+    job = Job(typeof(func), typeof(args)).new(func)
+    @jobs.push(job)
+    puts typeof(args)
+    job.call(args)
   end
 end
 
-#test = Test(Int32).new
-test = Test(Int32, String).new
-#test = Test(Nil).new
 
-x = {1, 2}
+# class FiberPool
+#   @jobs = Deque(IJob).new
 
-puts typeof(Int32)
+#   def initialize
+#   end
 
-y = {Int32, String}
-test *x
-test *y
+#   def add_job(*args)
+#     job = Job(typeof(args[0])).new(args[0])
+#     @jobs.push(job)
+#   end
+# end
+
+proc = ->test(Int32, Int32)
+fiberpool = FiberPool.new
+fiberpool.add_job(proc, 1, 2)
+fiberpool.add_job(->(i : Int32){
+  puts i
+  return "dab"
+}, 7)
+fiberpool.add_job(->{puts "hello"})
+# puts typeof(proc)
+# job = Job(typeof(proc)).new(proc)
+#job = Job(Int32, Int32).new(proc)
+#job.call(1, 2)
+
+# #test = Test(Int32).new
+# test = Test(Int32, String).new
+# #test = Test(Nil).new
+
+# x = {1, 2}
+
+# puts typeof(Int32)
+
+# y = {Int32, String}
+# test *x
+# test *y
