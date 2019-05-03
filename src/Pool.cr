@@ -1,10 +1,14 @@
 module AsynCrystal
 
   abstract class Pool
+    abstract def worker
+
     abstract def initialize
-    abstract def push
-    abstract def terminate
     abstract def finalize
+
+    abstract def push
+    abstract def stop
+    abstract def terminate
   end
 
 end

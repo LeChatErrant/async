@@ -64,7 +64,7 @@ https://lechaterrant.github.io/AsynCrystal/
    - [x] Simple generic pool with queued jobs
    - [x] Sleeping fibers, able to be awoken by the FiberPool
    - [x] Fully asynchronous functioning
-   - [ ] "Joining" fibers at FiberPool destruction. Offering a way to "kill" fibers manually
+   - [x] "Joining" fibers at FiberPool destruction. Offering a way to "kill" fibers manually
    - [ ] Return value of fibers
 
 - [ ] ThreadPool
