@@ -7,16 +7,20 @@ end
 
 abstract class IJob
   abstract def initialize
-  abstract def call(args)
+  abstract def call
 end
 
 class Job(T, K) < IJob
 
-  def initialize(@job : T)
+  def initialize(@job : T, @args : K)
+    puts {{ T.superclass }}
+    puts {{ T.ancestors }}
+    puts T
+    puts K
   end
 
-  def call(args : K)
-    @job.call *args
+  def call()
+    @job.call *@args
   end
 end
 
@@ -27,10 +31,9 @@ class FiberPool
   end
 
   def add_job(func, *args)
-    job = Job(typeof(func), typeof(args)).new(func)
+    job = Job(typeof(func), typeof(args)).new(func, args)
     @jobs.push(job)
-    puts typeof(args)
-    job.call(args)
+    job.call()
   end
 end
 

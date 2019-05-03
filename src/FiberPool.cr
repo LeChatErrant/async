@@ -2,9 +2,7 @@
 
 require "logger"
 
-module FiberPool
-  VERSION = "0.1.0"
-
+module AsynCrystal
   class FiberPool(T)
 
     macro default_severity_level

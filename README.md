@@ -79,7 +79,12 @@ https://lechaterrant.github.io/AsynCrystal/
    - [ ] Threads return value
 
 - [ ] Promise
-  - [ ] Roadmap to be defined
+  - [ ] Generic promise for fork, fiber, and threads
+  - [ ] Launching job when created
+  - [ ] State and return value
+  - [ ] await blocking method implementation
+  - [ ] .then and .catch
+  - [ ] .resolve and .reject
 
 ## Contributing
 
