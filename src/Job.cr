@@ -1,14 +1,17 @@
 require "logger"
-require "./AsynCrystal.cr"
+require "./AsynCrystalLogger.cr"
+
 
 module AsynCrystal
 
-  abstract class Job
+  private abstract class Job
     abstract def initialize
     abstract def call
   end
 
-  class Job(T, K) < Job
+  private class GenericJob(T, K) < Job
+
+    include AsynCrystalLogger
 
     @logger = Logger.new(STDERR, level: default_severity_level)
 
@@ -16,7 +19,7 @@ module AsynCrystal
       @logger.debug "Created new job from callable #{T} with args #{K}"
     end
 
-    def call()
+    def call
       @job.call *@args
     end
   end

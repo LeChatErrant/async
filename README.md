@@ -60,10 +60,10 @@ https://lechaterrant.github.io/AsynCrystal/
 ## TODO
 
 - [ ] FiberPool
-   - [ ] Trying to take any form of procs as arguments (aborted for the moment, as Crystal doesn't seem to support templating on Procs?)
+   - [x] Trying to take any form of procs as arguments (templated Job class)
    - [x] Simple generic pool with queued jobs
    - [x] Sleeping fibers, able to be awoken by the FiberPool
-   - [ ] Fully asynchronous functioning
+   - [x] Fully asynchronous functioning
    - [ ] "Joining" fibers at FiberPool destruction. Offering a way to "kill" fibers manually
    - [ ] Return value of fibers
 
