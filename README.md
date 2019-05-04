@@ -1,4 +1,4 @@
-# AsynCrystal
+# async
 
 [![Build Status](https://travis-ci.org/LeChatErrant/async.svg?branch=master)](https://travis-ci.org/LeChatErrant/async)
 [![star this repo](http://githubbadges.com/star.svg?user=LeChatErrant&repo=async&style=default)](https://github.com/LeChatErrant/async)
