@@ -1,7 +1,6 @@
 require "logger"
 
 module AsynCrystalLogger
-
   private macro default_severity_level
     {% if flag?(:release) %}
     Logger::ERROR

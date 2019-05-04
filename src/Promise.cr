@@ -1,6 +1,4 @@
-
 module AsynCrystal
-
   def await(promise : Promise)
   end
 
@@ -11,5 +9,4 @@ module AsynCrystal
     abstract def resolve
     abstract def reject
   end
-
 end

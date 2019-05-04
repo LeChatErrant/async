@@ -1,16 +1,13 @@
 require "logger"
 require "./AsynCrystalLogger.cr"
 
-
 module AsynCrystal
-
   private abstract class Job
     abstract def initialize
     abstract def call
   end
 
   private class GenericJob(T, K) < Job
-
     include AsynCrystalLogger
 
     @logger = Logger.new(STDERR, level: default_severity_level)
@@ -23,5 +20,4 @@ module AsynCrystal
       @job.call *@args
     end
   end
-
 end

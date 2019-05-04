@@ -5,9 +5,7 @@ require "./Job.cr"
 require "./AsynCrystalLogger.cr"
 
 module AsynCrystal
-
   class FiberPool < Pool
-
     include AsynCrystalLogger
 
     @logger = Logger.new(STDERR, level: default_severity_level)
@@ -22,7 +20,7 @@ module AsynCrystal
         while @is_running
           @channel.receive if @jobs.empty?
           @logger.debug "Task starting..."
-          @jobs.shift?().dup.try &.call()
+          @jobs.shift?.dup.try &.call()
           @logger.debug "Task finished..."
         end
         @logger.info "Fiber killed"
@@ -42,16 +40,15 @@ module AsynCrystal
 
     def stop
       @is_running = false
-      @jobs.clear()
-      @fibers.size().times { @channel.send(nil) }
+      @jobs.clear
+      @fibers.size.times { @channel.send(nil) }
     end
 
     def terminate
-      @fibers.each {|fiber| Fiber.inactive(fiber) }
+      @fibers.each { |fiber| Fiber.inactive(fiber) }
     end
 
     def finalize
     end
-
   end
 end

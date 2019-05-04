@@ -1,5 +1,5 @@
 require "./FiberPool.cr"
 
-module AsyncCrystal
+module AsynCrystal
   VERSION = "0.2.0"
 end
