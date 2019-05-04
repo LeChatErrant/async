@@ -2,7 +2,7 @@ module Async
   def await(promise : Promise)
   end
 
-  abstract class Promise
+  private abstract class Promise
     abstract def initialize
     abstract def then
     abstract def catch

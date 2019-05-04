@@ -1,5 +1,5 @@
 module Async
-  abstract class Pool
+  private abstract class Pool
     abstract def worker
 
     abstract def initialize
@@ -10,6 +10,7 @@ module Async
     abstract def wait
     abstract def wait_for
 
+    abstract def finish
     abstract def stop
     abstract def terminate
   end
