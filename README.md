@@ -1,10 +1,10 @@
 # AsynCrystal
 
-[![Build Status](https://travis-ci.org/LeChatErrant/AsynCrystal.svg?branch=master)](https://travis-ci.org/LeChatErrant/AsynCrystal)
-[![star this repo](http://githubbadges.com/star.svg?user=LeChatErrant&repo=AsynCrystal&style=default)](https://github.com/LeChatErrant/AsynCrystal)
-[![fork this repo](http://githubbadges.com/fork.svg?user=LeChatErrant&repo=AsynCrystal&style=default)](https://github.com/LeChatErrant/AsynCrystal/fork)
-[![GitHub Issues](https://img.shields.io/github/issues/LeChatErrant/AsynCrystal.svg)](https://github.com/LeChatErrant/AsynCrystal/issues)
-[![GitHub contributors](https://img.shields.io/github/contributors/LeChatErrant/AsynCrystal.svg)](https://GitHub.com/LeChatErrant/AsynCrystal/graphs/contributors/)
+[![Build Status](https://travis-ci.org/LeChatErrant/async.svg?branch=master)](https://travis-ci.org/LeChatErrant/async)
+[![star this repo](http://githubbadges.com/star.svg?user=LeChatErrant&repo=async&style=default)](https://github.com/LeChatErrant/async)
+[![fork this repo](http://githubbadges.com/fork.svg?user=LeChatErrant&repo=async&style=default)](https://github.com/LeChatErrant/async/fork)
+[![GitHub Issues](https://img.shields.io/github/issues/LeChatErrant/async.svg)](https://github.com/LeChatErrant/async/issues)
+[![GitHub contributors](https://img.shields.io/github/contributors/LeChatErrant/async.svg)](https://GitHub.com/LeChatErrant/async/graphs/contributors/)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-green.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 > A collection of tools to manage asynchronous tasks in crystal
@@ -19,10 +19,11 @@ This will be updated with the release of a stable version
 
 
 
-AsynCrystal is a collection of tools to handle asynchronous tasks in crystal. It is currently divided in 3 parts (more parts may come after!) :
+Async is a collection of tools to handle asynchronous tasks in crystal. It is currently composed of :
  - FiberPool, equivalent of a thread-pool, but using crystal fibers
  - ThreadPool, a thread-pool written in crystal. As crystal doesn't natively support threads for the moment, it is based on C bindings of pthread
  - Promise, a wrapper around asynchronous return value, just like in ES6, and providing usefull functions like `await`, `resolve` or `reject`
+ - more parts coming after, using process, and more!
 
 
 
@@ -37,8 +38,8 @@ And don't hesitate to give a star if you like it, of course!
 
 ```yaml
 dependencies:
-  AsynCrystal:
-    github: LeChatErrant/AsynCrystal
+  async:
+    github: LeChatErrant/async
 ```
 
 2. Run `shards install`
@@ -46,7 +47,9 @@ dependencies:
 ## Usage
 
 ```crystal
-require "AsynCrystal"
+require "async"
+
+include Async
 ```
 
 TODO: Write usage instructions here
@@ -66,6 +69,7 @@ https://lechaterrant.github.io/AsynCrystal/
    - [x] Fully asynchronous functioning
    - [x] "Joining" fibers at FiberPool destruction. Offering a way to "kill" fibers manually
    - [ ] Return value of fibers
+   - [ ] wait and wait_for methods (respectively, blocking call waiting for ALL jobs to finish, and a blocking call waiting for the job given as parameter to finish)
 
 - [ ] ThreadPool
    - [ ] Abstract class above FiberPool and ThreadPool, to make users able to substitute fibers by threads
@@ -78,6 +82,9 @@ https://lechaterrant.github.io/AsynCrystal/
    - [ ] Threads joining
    - [ ] Threads return value
 
+- [ ] ProcessPool
+   - [ ] Roadmap to be defined!
+
 - [ ] Promise
   - [ ] Generic promise for fork, fiber, and threads
   - [ ] Launching job when created
@@ -88,7 +95,7 @@ https://lechaterrant.github.io/AsynCrystal/
 
 ## Contributing
 
-1. Fork it (<https://github.com/LeChatErrant/AsynCrystal/fork>)
+1. Fork it (<https://github.com/LeChatErrant/async/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

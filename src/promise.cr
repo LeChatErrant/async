@@ -1,4 +1,4 @@
-module AsynCrystal
+module Async
   def await(promise : Promise)
   end
 

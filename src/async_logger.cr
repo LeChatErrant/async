@@ -1,6 +1,7 @@
 require "logger"
 
-module AsynCrystalLogger
+# TODO: to wrap inside the main module
+module AsyncLogger
   private macro default_severity_level
     {% if flag?(:release) %}
     Logger::ERROR

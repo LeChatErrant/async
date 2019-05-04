@@ -1,4 +1,4 @@
-require "./src/AsynCrystal.cr"
+require "./src/async.cr"
 
 def print_numbers_and_say_hello(x, y)
   sleep 1.seconds
@@ -8,7 +8,7 @@ def print_numbers_and_say_hello(x, y)
   "hello"
 end
 
-include AsynCrystal
+include Async
 
 # Create a new fiber pool, with 2 fibers
 fiber_pool = FiberPool.new(2)

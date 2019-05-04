@@ -1,12 +1,12 @@
 # TODO: Write documentation for `FiberPool`
 
-require "./Pool.cr"
-require "./Job.cr"
-require "./AsynCrystalLogger.cr"
+require "./pool.cr"
+require "./job.cr"
+require "./async_logger.cr"
 
-module AsynCrystal
+module Async
   class FiberPool < Pool
-    include AsynCrystalLogger
+    include AsyncLogger
 
     @logger = Logger.new(STDERR, level: default_severity_level)
     @channel = Channel(Nil).new(1)
@@ -36,6 +36,12 @@ module AsynCrystal
       @jobs.push(job)
       @logger.debug "Job added in FiberPool queue"
       @channel.send(nil) if @jobs.empty?
+    end
+
+    def wait
+    end
+
+    def wait_for
     end
 
     def stop

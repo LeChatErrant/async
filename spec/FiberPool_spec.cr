@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe FiberPool do
+describe Async do
   # TODO: Write tests
 
   it "works" do

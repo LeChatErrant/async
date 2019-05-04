@@ -9,7 +9,7 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  project_name: AsynCrystal
+  project_name: async
   on:
     branch: master
   local_dir: docs

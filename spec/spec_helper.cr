@@ -1,2 +1,2 @@
 require "spec"
-require "../src/FiberPool"
+require "../src/async"
