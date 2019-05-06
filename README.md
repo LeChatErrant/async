@@ -17,6 +17,7 @@ This little baby is still under heavy development. You can see my roadmap below!
 
 This will be updated with the release of a stable version
 
+## Async
 
 The purpose of Async is to offer a collection of usefull tools to handle asynchronous tasks in crystal.
 
