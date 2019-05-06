@@ -1,7 +1,10 @@
-require "../promise.cr"
+require "./promise.cr"
+require "../logger"
 
 module Async
   class FiberPromise < Promise
+    include AsyncLogger
+
     def initialize
     end
 

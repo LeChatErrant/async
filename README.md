@@ -58,7 +58,7 @@ TODO: Write usage instructions here
 
 > The documentation is not ready for now, as the project is still in development and subject to changes
 
-https://lechaterrant.github.io/AsynCrystal/
+https://lechaterrant.github.io/async/
 
 ## TODO
 
@@ -69,7 +69,8 @@ https://lechaterrant.github.io/AsynCrystal/
    - [x] Fully asynchronous functioning
    - [x] "Joining" fibers at FiberPool destruction. Offering a way to "kill" fibers manually
    - [ ] Return value of fibers
-   - [ ] wait and wait_for methods (respectively, blocking call waiting for ALL jobs to finish, and a blocking call waiting for the job given as parameter to finish)
+   - [x] wait and wait_for methods (respectively, blocking call waiting for ALL jobs to finish, and a blocking call waiting for the job given as parameter to finish)
+   - [x] documented api
 
 - [ ] ThreadPool
    - [ ] Abstract class above FiberPool and ThreadPool, to make users able to substitute fibers by threads
