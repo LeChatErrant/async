@@ -44,6 +44,12 @@ dependencies:
 
 2. Run `shards install`
 
+## Documentation
+
+> The documentation is not ready for now, as the project is still in development and subject to changes
+
+https://lechaterrant.github.io/async/
+
 ## Usage
 
 ```crystal
@@ -168,12 +174,6 @@ It is build on the Promise model of Javascript (ES6), and allow multiple action 
 #### Callbacks (.then / .catch)
 
 #### Error handling
-
-## Documentation
-
-> The documentation is not ready for now, as the project is still in development and subject to changes
-
-https://lechaterrant.github.io/async/
 
 ## TODO
 
