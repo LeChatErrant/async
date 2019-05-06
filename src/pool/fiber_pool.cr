@@ -121,7 +121,6 @@ module Async
       while (@available < @fibers.size)
         @wait_channel.receive
       end
-#      (@fibers.size - @available).times { @wait_channel.receive }
       @is_waiting = false
       @logger.info "[FiberPool#wait] All jobs finished!"
     end

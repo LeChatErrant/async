@@ -36,9 +36,9 @@ fiber_pool.wait_for(->{
 
 # Add five times the same job
 5.times { |i|
-  fiber_pool.push(->(i : Int32) {
+  fiber_pool.push(->(x : Int32) {
     sleep 1.seconds
-    puts i
+    puts "I'm the iteration number #{x}!"
   }, i)
 }
 
@@ -46,5 +46,5 @@ fiber_pool.wait_for(->{
 fiber_pool.wait
 
 # Waiting for all jobs to finish, and kill the fiber pool
-fiber_pool.push(->{puts "hello"})
+fiber_pool.push(->{ puts "hello" })
 fiber_pool.finish

@@ -1,7 +1,6 @@
 require "./generic_job.cr"
 
 module Async
-
   private class Job(T, K) < GenericJob
     def initialize(@callable : T, @args : K)
     end
@@ -10,5 +9,4 @@ module Async
       @callable.call *@args
     end
   end
-
 end
