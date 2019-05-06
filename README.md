@@ -18,16 +18,31 @@ This little baby is still under heavy development. You can see my roadmap below!
 This will be updated with the release of a stable version
 
 
+The purpose of Async is to offer a collection of usefull tools to handle asynchronous tasks in crystal.
 
-Async is a collection of tools to handle asynchronous tasks in crystal. It is currently composed of :
- - FiberPool, equivalent of a thread-pool, but using crystal fibers
- - ThreadPool, a thread-pool written in crystal. As crystal doesn't natively support threads for the moment, it is based on C bindings of pthread
- - Promise, a wrapper around asynchronous return value, just like in ES6, and providing usefull functions like `await`, `resolve` or `reject`
- - more parts coming after, using process, and more!
+It comes with :
+
+ - Promise, a wrapper allowing the user to do complex actions in only one line, such as
+   - Waiting for a task to be completed
+   - Running task in background and get their result later
+   - Assigning callbacks on success / error for an asynchronous task
+   - and many many more! ;)
+
+ - Pool, a tool based on a classic thread pool architecture. It allows the user to
+   - launch multiple asynchronous workers, always ready to execute tasks
+   - add tasks to the pool. Workers will take it for you and execute it asynchronously in the bakckground!
+   - control the execution of MANY jobs simultaneous with different methods
+   - not to relaunch, for example, a Thread, each time you want to launch an action in the background : here, the workers are launched only ONE time, and are picking differents tasks!
+
+Every class comes with three different implementation, each time using a different type of worker :
+ - Fibers : native crystal green thread, those you can invoke using `spawn`
+ - Threads : as crystal doesn't natively support threads for the moment, it is based on C bindings of pthread
+ - Process : an entire process, with a lighter memory
 
 
 
-Actually, it's one of my first project written in Crystal : feel free to contribute, or to send tips !
+
+Feel free to contribute, or to send tips !
 
 And don't hesitate to give a star if you like it, of course!
 
