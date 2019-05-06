@@ -86,6 +86,8 @@ end)
 
 ```crystal
 pool.push(->(i : Int32) { puts i }, 12)
+# Notice that arguments are givent after the Proc!
+# If you forget one argument, your code won't compile
 ```
 
  - From an existing function
