@@ -52,7 +52,120 @@ require "async"
 include Async
 ```
 
-TODO: Write usage instructions here
+### Pool
+
+Async offer you different kinds of workers pool :
+ - FiberPool
+ - ThreadPool (In developpement)
+ - ProcessPool (Not implemented yet)
+
+Each pool has the same api (see Documentation)
+
+Here is an example using a FiberPool, but this works with any kind of pool!
+
+#### Creating a pool
+
+Keep in mind that here, a worker is a crystal Fiber. With a ThreadPool, it would have been a Thread, and with a ProcessPool, an entire Process
+
+```crystal
+pool = FiberPool.new(3) # Create and launch a pool with 3 workers
+```
+
+#### Adding jobs
+
+You can add jobs by multiple way :
+ - From a block, using do/end notation
+
+```crystal
+pool.push(->do
+  puts "hello"
+end)
+```
+
+ - From a block, using bracket notation
+
+```crystal
+pool.push(->(i : Int32) { puts i }, 12)
+```
+
+ - From an existing function
+
+```crystal
+def my_function(x : Int32, y : Int32)
+  sleep 1.seconds
+  puts x
+  sleep 3.seconds
+  puts y
+  "hello"
+end
+
+my_function_proc = ->my_function(Int32, Int32)
+pool.push(my_function_proc, 1, 2)
+# Or simply
+pool.push(->my_function(Int32, Int32), 1, 2)
+```
+
+ - You can add a job with the `wait_for` method too. It'll block the execution until a worker has picked and executed this job
+
+```crystal
+fiber_pool.wait_for(->{
+  puts "Let's sleep a bit"
+  sleep 3.seconds
+  puts "I'm done with sleeping!"
+})
+# Execution will continue once "I'm done with sleeping!" have been displayed
+```
+
+#### Pool control
+
+Async give you some way to control your workers pool :
+
+ - The `wait` method, blocking the execution until every jobs have been executed
+
+```crystal
+pool.wait
+# Execution will continue once every jobs will be finished
+```
+
+ - The `finish` method, blocking the execution until every jobs have been executed, and then kill all workers. Notice that you can't use the pool after this, as it's a way to destroy it
+
+```crystal
+pool.finish
+# Execution blocked until every jobs will be finished and workers killed
+```
+
+ - The `stop` method. Once stop have been called, the pool will finish all currently executed jobs, when kill every workers. Notice that all the pending jobs will be lost! It's usefull when you want to stop the pool without executing all queues tasks. Stop is not a blocking call, but you can't use the pool after this, as it's a way to destroy it
+
+```crystal
+pool.stop
+# Execution not blocked, currently started jobs finishing in background, pending jobs lost, and fibers killed in background
+```
+
+ - The `terminate` method, killing all workers instataneously, without finishing any job!
+
+```crystal
+# Unfortunatly, not implemented for the moment... Sorry <3
+```
+
+### Promise
+
+Promises are not available yet! But.. currently in development! ;) Coming soon
+
+Promise is a wrapper around an asynchronous task. This task can be handle with a crystal Fiber, a Thread, or a Process, respectively with FiberPromise, ThreadPromise, and ProcessPromise.
+
+It is build on the Promise model of Javascript (ES6), and allow multiple action with it
+
+#### Creating a Promise
+
+#### Waiting a Promise
+
+#### Return value
+
+#### Resolve / Reject
+
+#### Callbacks (.then / .catch)
+
+#### Error handling
 
 ## Documentation
 
@@ -87,7 +200,7 @@ https://lechaterrant.github.io/async/
    - [ ] Roadmap to be defined!
 
 - [ ] Promise
-  - [ ] Generic promise for fork, fiber, and threads
+  - [ ] Generic promise for process, fiber, and threads
   - [ ] Launching job when created
   - [ ] State and return value
   - [ ] await blocking method implementation
