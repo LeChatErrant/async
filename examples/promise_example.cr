@@ -2,7 +2,7 @@ require "../src/async.cr"
 
 include Async
 
-promise = FiberPromise.new(->(i : Int32){puts i}, 12)
+promise = FiberPromise.new(->(i : Int32) { puts i }, 12)
 
 puts "I'm before await"
 await FiberPromise.new(->do
@@ -13,3 +13,5 @@ await FiberPromise.new(->do
   puts "I'm awake! :)"
 end)
 puts "I'm after await"
+
+await promise
