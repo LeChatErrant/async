@@ -64,11 +64,17 @@ module Async
     end
 
     private def send_job(job)
-      if @available < 0
+      if @available <= 0
         @jobs.push(job)
       else
         @available -= 1
-        @channel.send(job)
+        tmp = @jobs.shift?
+        if tmp != nil
+          @channel.send(tmp)
+          @jobs.push(job)
+        else
+          @channel.send(job)
+        end
       end
     end
 
