@@ -25,13 +25,14 @@ module Async
         @state = PromiseState::RESOLVED
       rescue e
         @return_value = ReturnValue(typeof(e)).new(e)
+        @state = PromiseState::REJECTED
       ensure
         @channel.send(nil) if @is_waiting
       end
     end
 
     def wait
-      if state == PromiseState::RESOLVED
+      if state != PromiseState::PENDING
         @return_value.get
       else
         @is_waiting = true
@@ -41,7 +42,7 @@ module Async
     end
 
     def get
-      if state == PromiseState::RESOLVED
+      if state != PromiseState::PENDING
         @return_value.get
       else
         @state
