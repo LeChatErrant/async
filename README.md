@@ -41,12 +41,13 @@ Every class comes with three different implementation, each time using a differe
  - Process : an entire process, with a lighter memory
 
 
-
+___
 
 Feel free to contribute, or to send tips !
 
 And don't hesitate to give a star if you like it, of course!
 
+____
 
 ## Installation
 
@@ -74,6 +75,8 @@ require "async"
 include Async
 ```
 
+___
+
 ### Promise
 
 Promises are still currently in development! ;)
@@ -86,13 +89,13 @@ Each Promise has the same api (see Documentation), see below for an example usin
 
 #### Creating a Promise
 
-Keep in mind that here, we're working with FiberPromise, so the asynchronous task is laucnhed in a Fiber. With a ThreadPool, it would have been a Thread, and with a ProcessPool, an entire Process
+Keep in mind that here, we're working with FiberPromise, so the asynchronous task is launched in a Fiber. With a ThreadPool, it would have been a Thread, and with a ProcessPool, an entire Process
 
 Using bracket notation
 
 ```crystal
 promise = FiberPromise.new(->{ puts "Hello" })
-# Notice that creating a Promise immediatly launch the wrapped Proc
+# Notice that creating a Promise immediatly launches the wrapped Proc
 ```
 
 Using do/end notation
@@ -175,12 +178,12 @@ conditionnal_proc = ->(toggle : Bool) do
   return false, "I received false... :("
 end
 puts await FiberPromise.new(conditionnal_proc, true)  # I received true! :)
-puts await FiberPromise.new(conditionnal_proc, false) # false
+puts await FiberPromise.new(conditionnal_proc, false) # {false, "I received false... :("}
 ```
 
 #### Error handling
 
-Errors can be thrown inside a Promise, and are catch for you : the return value will be the Exception raised
+Errors can be thrown inside a Promise, and are caught for you : the return value will be the Exception raised
 
 ```crystal
 promise = FiberPromise.new(->{
@@ -206,7 +209,7 @@ conditionnal_proc = ->(toggle : Bool) do
   resolve false, "I received false... :("
 end
 puts await FiberPromise.new(conditionnal_proc, true)  # I received true! :)
-puts await FiberPromise.new(conditionnal_proc, false) # false
+puts await FiberPromise.new(conditionnal_proc, false) # {false, "I received false... :("
 ```
 
 `reject` works the same way `raise` works, so you can reject either a String or an Exception
@@ -232,6 +235,8 @@ puts value.class  # Exception
 #### Callbacks (.then / .catch)
 
 Not implemented yet! :) But i'm actually working on it
+
+___
 
 ### Pool
 
