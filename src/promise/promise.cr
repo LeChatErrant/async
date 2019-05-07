@@ -3,6 +3,12 @@ module Async
     promise.wait
   end
 
+  macro resolve(*values)
+  end
+
+  def reject(error)
+  end
+
   enum PromiseState
     PENDING
     RESOLVED
@@ -17,5 +23,7 @@ module Async
     abstract def catch
     abstract def resolve
     abstract def reject
+    abstract def to_s(io : IO) : Nil
+    abstract def state
   end
 end
