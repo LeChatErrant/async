@@ -4,6 +4,7 @@ module Async
   end
 
   macro resolve(*values)
+    return {{*values}}
   end
 
   def reject(error)

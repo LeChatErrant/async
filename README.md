@@ -74,6 +74,130 @@ require "async"
 include Async
 ```
 
+### Promise
+
+Promises are still currently in development! ;)
+
+Promise is a wrapper around an asynchronous task. This task can be handle with a crystal Fiber, a Thread, or a Process, respectively with FiberPromise, ThreadPromise, and ProcessPromise.
+
+It is build on the Promise model of Javascript (ES6), and allow multiple action with it
+
+Each Promise has the same api (see Documentation), see below for an example using FiberPromise
+
+#### Creating a Promise
+
+Keep in mind that here, we're working with FiberPromise, so the asynchronous task is laucnhed in a Fiber. With a ThreadPool, it would have been a Thread, and with a ProcessPool, an entire Process
+
+Using bracket notation
+
+```crystal
+promise = FiberPromise.new(->{ puts "Hello" })
+# Notice that creating a Promise immediatly launch the wrapped Proc
+```
+
+Using do/end notation
+
+```crystal
+promise = FiberPromise.new(->(arg : String) do
+  puts arg
+end, "Hello")
+# Notice that arguments are given after the Proc
+# You code won't compile if you forget an argument
+```
+
+From an existing function
+
+```crystal
+def say(arg : String)
+  puts arg
+end
+
+proc_say = ->say(String)
+promise = FiberPromise.new(proc_say, "Hello)
+# Or simply
+promise = FiberPromise.new(->say(String), "Hello")
+```
+
+#### Waiting a Promise
+
+`await` block the execution until the given Proc is finished
+
+```crystal
+await FiberPromise.new(-> do
+  puts "time for a nap!"
+  sleep 2.seconds
+  puts "zzz..."
+  sleep 2.seconds
+  puts "I'm awake! :)"
+end)
+puts "I'm after await"
+```
+
+It's usefull to wait for a specific task before your program continues
+
+Waiting for an already resolved Promise won't have any effect
+
+```crystal
+promise = FiberPromise.new(->{ puts "hello" })
+await promise
+```
+
+#### Return value
+
+Try to display a promise : you'll get its state!
+
+```crystal
+puts promise  # #<Async::FiberPromise:object_id> PENDING
+puts promise.state  # PENDING
+# .get will return it's state too until resolved
+puts promise.get  # PENDING
+```
+
+A promise is said PENDING when currently executed, RESOLVED when finished, and REJECTED if an error was thrown
+
+When the promise is resolved, you can access its value
+
+```crystal
+promised_value = await promise
+puts promised_value # returned value
+puts promise.get  # returned value
+puts promise.state  # RESOLVED
+puts promise  # #<Async::FiberPromise:object_id> RESOLVED
+```
+
+Of course, you can use the keyword `return` inside a Promise, and return different types of values, and multiple values at the same time
+
+```crystal
+conditionnal_proc = ->(toggle : Bool) do
+  if toggle
+    return "I received true! :)"
+  end
+  return false, "I received false... :("
+end
+puts await FiberPromise.new(conditionnal_proc, true)  # I received true! :)
+puts await FiberPromise.new(conditionnal_proc, false) # false
+```
+
+But prefer using `resolve` (it basically does the same thing, but indicates you are resolving a promise)
+
+```crystal
+conditionnal_proc = ->(toggle : Bool) do
+  if toggle
+    resolve "I received true! :)"
+  end
+  resolve false, "I received false... :("
+end
+puts await FiberPromise.new(conditionnal_proc, true)  # I received true! :)
+puts await FiberPromise.new(conditionnal_proc, false) # false
+```
+
+#### Resolve / Reject
+
+#### Callbacks (.then / .catch)
+
+#### Error handling
+
+
 ### Pool
 
 Async offer you different kinds of workers pool :
@@ -177,26 +301,6 @@ pool.stop
 pool.finalize
 ```
 
-### Promise
-
-Promises are not available yet! But.. currently in development! ;) Coming soon
-
-Promise is a wrapper around an asynchronous task. This task can be handle with a crystal Fiber, a Thread, or a Process, respectively with FiberPromise, ThreadPromise, and ProcessPromise.
-
-It is build on the Promise model of Javascript (ES6), and allow multiple action with it
-
-#### Creating a Promise
-
-#### Waiting a Promise
-
-#### Return value
-
-#### Resolve / Reject
-
-#### Callbacks (.then / .catch)
-
-#### Error handling
-
 ## TODO
 
 - [ ] FiberPool
@@ -223,13 +327,20 @@ It is build on the Promise model of Javascript (ES6), and allow multiple action 
 - [ ] ProcessPool
    - [ ] Roadmap to be defined!
 
-- [ ] Promise
-  - [ ] Generic promise for process, fiber, and threads
-  - [ ] Launching job when created
-  - [ ] State and return value
-  - [ ] await blocking method implementation
+- [ ] FiberPromise
+  - [x] Launching generic job in fiber at creation
+  - [x] State and return value
+  - [x] await blocking method implementation
   - [ ] .then and .catch
+  - [ ] chaining .then and .catch
   - [ ] .resolve and .reject
+
+- [ ] ThreadPromise
+   - [ ] Roadmap to be defined!
+
+- [ ] ProcessPromise
+   - [ ] Roadmap to be defined!
+
 
 ## Contributing
 
