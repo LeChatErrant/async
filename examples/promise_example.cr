@@ -50,3 +50,21 @@ conditionnal_proc = ->(toggle : Bool) do
 end
 puts await FiberPromise.new(conditionnal_proc, true)
 puts await FiberPromise.new(conditionnal_proc, false)
+
+# You can throw errors inside a promise. As for return, prefer using `reject`
+# `reject` works the same way raise works, so you can pass a String or an Exception as parameter
+promise = FiberPromise.new(->{
+  reject "Oh, no!"
+})
+
+value = await promise
+puts value       # Oh, no!
+puts value.class # Exception
+
+promise = FiberPromise.new(->{
+  reject Exception.new("Oh, no!")
+})
+
+value = await promise
+puts value       # Oh, no!
+puts value.class # Exception

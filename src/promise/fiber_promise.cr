@@ -8,7 +8,7 @@ module Async
     include AsyncLogger
 
     @state = PromiseState::PENDING
-    @waiters : Int32 = 0
+    @is_waiting = false
     @channel = Channel(Nil).new
     @return_value : GenericReturnValue = ReturnValue(Nil).new(nil)
 
@@ -23,11 +23,10 @@ module Async
         tmp = job.call
         @return_value = ReturnValue(typeof(tmp)).new(tmp)
         @state = PromiseState::RESOLVED
-        # The responsability to decrease @waiters is taken by the fiber to avoid "deadlock" when the same Promise is waited from many Fibers
-        while @waiters > 0
-          @waiters -= 1
-          @channel.send(nil)
-        end
+      rescue e
+        @return_value = ReturnValue(typeof(e)).new(e)
+      ensure
+        @channel.send(nil) if @is_waiting
       end
     end
 
@@ -35,7 +34,7 @@ module Async
       if state == PromiseState::RESOLVED
         @return_value.get
       else
-        @waiters += 1
+        @is_waiting = true
         @channel.receive
         @return_value.get
       end
@@ -55,12 +54,6 @@ module Async
     end
 
     def catch
-    end
-
-    def resolve
-    end
-
-    def reject
     end
 
     def to_s(io : IO) : Nil

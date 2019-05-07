@@ -7,7 +7,12 @@ module Async
     return {{*values}}
   end
 
-  def reject(error)
+  def reject(message : String) : NoReturn
+    raise Exception.new(message)
+  end
+
+  def reject(exception : Exception) : NoReturn
+    raise exception
   end
 
   enum PromiseState
@@ -22,8 +27,6 @@ module Async
     abstract def get
     abstract def then
     abstract def catch
-    abstract def resolve
-    abstract def reject
     abstract def to_s(io : IO) : Nil
     abstract def state
   end

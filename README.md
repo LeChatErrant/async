@@ -178,7 +178,25 @@ puts await FiberPromise.new(conditionnal_proc, true)  # I received true! :)
 puts await FiberPromise.new(conditionnal_proc, false) # false
 ```
 
-But prefer using `resolve` (it basically does the same thing, but indicates you are resolving a promise)
+#### Error handling
+
+Errors can be thrown inside a Promise, and are catch for you : the return value will be the Exception raised
+
+```crystal
+promise = FiberPromise.new(->{
+  raise "Oh, no!"
+})
+
+value = await promise
+puts value  # Oh, no!
+puts value.class  # Exception
+```
+
+#### Resolve / Reject
+
+When you're inside a promise, prefere using `resolve` and `reject`, instead of `return` and `raise`.
+
+Basically, it does the same thing, but indicates you're handling a Promise, and not something else
 
 ```crystal
 conditionnal_proc = ->(toggle : Bool) do
@@ -191,12 +209,29 @@ puts await FiberPromise.new(conditionnal_proc, true)  # I received true! :)
 puts await FiberPromise.new(conditionnal_proc, false) # false
 ```
 
-#### Resolve / Reject
+`reject` works the same way `raise` works, so you can reject either a String or an Exception
+
+```crystal
+promise = FiberPromise.new(->{
+  reject "Oh, no!"
+})
+
+value = await promise
+puts value  # Oh, no!
+puts value.class  # Exception
+
+promise = FiberPromise.new(->{
+  reject Exception.new("Oh, no!")
+})
+
+value = await promise
+puts value  # Oh, no!
+puts value.class  # Exception
+```
 
 #### Callbacks (.then / .catch)
 
-#### Error handling
-
+Not implemented yet! :) But i'm actually working on it
 
 ### Pool
 
@@ -331,9 +366,10 @@ pool.finalize
   - [x] Launching generic job in fiber at creation
   - [x] State and return value
   - [x] await blocking method implementation
+  - [x] error throwing
   - [ ] .then and .catch
   - [ ] chaining .then and .catch
-  - [ ] .resolve and .reject
+  - [x] resolve and reject keywords
 
 - [ ] ThreadPromise
    - [ ] Roadmap to be defined!
