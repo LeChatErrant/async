@@ -171,6 +171,12 @@ pool.stop
 # Unfortunatly, not implemented for the moment... Sorry <3
 ```
 
+ - The `finalize` is used to destroy the pool : it will finish in the background every jobs, and kill workers. It's the equivalent of the `finish` method, but without stoping the execution. As it's a way to destroy the pool, you can't use it after this
+
+```crystal
+pool.finalize
+```
+
 ### Promise
 
 Promises are not available yet! But.. currently in development! ;) Coming soon

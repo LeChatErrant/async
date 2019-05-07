@@ -47,4 +47,4 @@ pool.wait
 
 # Waiting for all jobs to finish, and kill the fiber pool
 pool.push(->{ puts "hello" })
-pool.finish
+pool.wait
