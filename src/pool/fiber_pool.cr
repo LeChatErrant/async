@@ -11,7 +11,7 @@ module Async
     # Available fibers
     @available = 0
     # Jobs queue
-    @jobs = Deque(GenericJob).new
+    @jobs = Deque(GenericJob | Nil).new
     # Fibers
     @fibers = [] of Fiber
 
@@ -188,6 +188,10 @@ module Async
     def finalize
       @logger.info "[FiberPool#finalize] Fiber pool is finishing to work in the background..."
       @is_working = false
+      while (@available > 0)
+        @available -= 1
+        @channel.send(nil)
+      end
     end
   end
 end
