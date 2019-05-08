@@ -455,6 +455,7 @@ pool.finalize
   - [ ] chaining .then and .catch
   - [ ] .finally
   - [ ] arguments depending on the callback (possibility to take 0 arguments for a .catch, for example)
+  - [ ] adding multiples callbacks on the same event
   - [x] resolve and reject keywords
   - [ ] documented code
   - [ ] specs
