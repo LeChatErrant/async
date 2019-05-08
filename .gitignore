@@ -7,3 +7,9 @@
 # Libraries don't need dependency lock
 # Dependencies will be locked in applications that use them
 /shard.lock
+
+# Test file
+test.cr
+test
+lab.cr
+lab
