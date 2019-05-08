@@ -7,7 +7,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/LeChatErrant/async.svg)](https://GitHub.com/LeChatErrant/async/graphs/contributors/)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-green.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-> A collection of tools to manage asynchronous tasks in crystal
+> Promises based tools to manage asynchronous tasks in crystal
 
 ### Note from the creator
 
@@ -79,9 +79,9 @@ ___
 
 ### Promise
 
-Promises are still currently in development! ;)
+> Promises are still currently in development! ;) I'm actually working on callbacks, and their Thread version will come soon
 
-Promise is a wrapper around an asynchronous task. This task can be handle with a crystal Fiber, a Thread, or a Process, respectively with FiberPromise, ThreadPromise, and ProcessPromise.
+Promise is a wrapper around an asynchronous task. This task can be handled with a crystal Fiber, a Thread, or a Process, respectively with FiberPromise, ThreadPromise, and ProcessPromise.
 
 It is build on the Promise model of Javascript (ES6), and allow multiple action with it
 
@@ -454,8 +454,10 @@ pool.finalize
   - [ ] .then and .catch
   - [ ] chaining .then and .catch
   - [ ] .finally
+  - [ ] arguments depending on the callback (possibility to take 0 arguments for a .catch, for example)
   - [x] resolve and reject keywords
   - [ ] documented code
+  - [ ] specs
 
 - [ ] ThreadPromise
    - [ ] Roadmap to be defined!
