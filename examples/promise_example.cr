@@ -1,7 +1,5 @@
 require "../src/async.cr"
 
-# Still in development!
-
 include Async
 
 # Create a promise from a Proc
@@ -68,3 +66,66 @@ promise = FiberPromise.new(->{
 value = await promise
 puts value       # Oh, no!
 puts value.class # Exception
+
+
+# CALLBACKS ARE STILL IN DEVELOPMENT AND NOT READY NOW
+
+
+# You can pass callbacks to you promise (Proc that will be executed AFTER your promise)
+# Success callback is added with .then and failure callback is added with .catch
+
+# A success callaback
+promise = FiberPromise.new(->{
+  puts "Time for a nap..."
+  sleep 2.seconds
+})
+promise.then(->{ puts "I had a good night! :)" })
+
+puts "I wonder if he's still sleeping..."
+sleep 3
+
+# A success callaback
+promise = FiberPromise.new(->{
+  puts "Time to work..."
+  sleep 2.seconds
+  reject "Coffee" #TODO : test without reject! :/
+})
+promise.catch(->(e : Exception) { puts "I should go drink #{e.message}!" })
+
+puts "I wonder if he's still working..."
+sleep 4.seconds
+
+# # Callbacks can be chained, like this
+
+# FiberPromise.new(->{
+#   puts "hello"
+# }).then(->{
+#   "a success!"
+# }).then(->{
+#   "again a success?"
+# }).catch(->{
+#   "i'm a failure..."
+# })
+
+# # Notice that if an error is thrown, all the .then blocks will be skipped until a .catch block is found
+
+# FiberPromise.new(->{
+#   reject "Oh no!"
+# }).then(->{
+#   "I won't be called if an error is thrown..."
+# }).catch(->{
+#   "Gotcha!"
+# })
+
+# # You can add callbacks too with .finally
+# # Finally callbacks will be called in ANY cases, either if the Promise is REJECTED or RESOLVED
+
+# FiberPromise.new(->{
+#   puts "hello"
+# }).then(->{
+#   "RESOLVED"
+# }).catch(->{
+#   "REJECTED"
+# }).finally(->{
+#   "ANY CASE"
+# })

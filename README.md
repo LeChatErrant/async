@@ -234,7 +234,86 @@ puts value.class  # Exception
 
 #### Callbacks (.then / .catch)
 
-Not implemented yet! :) But i'm actually working on it
+> Promise callbacks are still under development! Don't use it for the moment, as it's still not stable.
+
+Callbacks are pieces of code which will be executed AFTER your Promise, asynchronously. You can add a callback like this :
+
+```crystal
+FiberPromise.new(->{
+  # do something
+}).then(->{
+  # will be executed once the Promise is RESOLVED
+})
+```
+
+.then is for adding callbacks on RESOlVE
+
+You can use .catch for adding callbacks on REJECT
+
+```crystal
+FiberPromise.new(->{
+  reject "oh no!"
+}).catch((e : Exception)->{
+  puts "{e.message}"
+})
+```
+
+You can have callbacks on RESOLVE and REJECT simultaneously, to execute code depending on the promise state.
+
+```crystal
+promise = FiberPromise.new(->{
+  # Do something
+})
+
+promise.then(->{ "RESOLVED" })
+promise.catch(->{ "REJECTED" })
+```
+
+Notice that adding a callback on a state will override the older one on the same state
+
+#### .finally
+
+With .finally, you can add callback which will be called in any case
+
+```crystal
+FiberPromise.new(->{
+  # Do something
+}).finally({
+  # Will be called either if the Promise was RESOLVED or REJECTED
+})
+```
+
+#### Chaining callbacks
+
+Adding a callback return a new Promise object
+
+It means you can chain callbacks, like this :
+
+```crystal
+FiberPromise.new(->{
+  # Do something
+}).then(->{
+  "RESOLVED"
+}).catch(->{
+  "REJECTED"
+}).finally(->{
+  "ANY CASE"
+})
+```
+
+If, for example, an error is thrown, every THEN blocks will be skipped until a CATCH or FINALLY block is found
+
+```crystal
+FiberPromise.new(->{
+  reject "Oh no!"
+}).then(->{
+  "I won't be called if an error is thrown..."
+}).catch(->{
+  "Gotcha!"
+})
+```
+
+With this, you can totally control your asynchronous flow :) enjoy!
 
 ___
 
@@ -374,7 +453,9 @@ pool.finalize
   - [x] error throwing
   - [ ] .then and .catch
   - [ ] chaining .then and .catch
+  - [ ] .finally
   - [x] resolve and reject keywords
+  - [ ] documented code
 
 - [ ] ThreadPromise
    - [ ] Roadmap to be defined!

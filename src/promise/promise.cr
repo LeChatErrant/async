@@ -25,8 +25,9 @@ module Async
     abstract def initialize
     abstract def wait
     abstract def get
-    abstract def then
-    abstract def catch
+    abstract def then(callable)
+    abstract def catch(callable)
+    abstract def finally(callable)
     abstract def to_s(io : IO) : Nil
     abstract def state
   end
