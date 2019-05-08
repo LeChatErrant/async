@@ -5,7 +5,6 @@ require "../logger"
 require "../function"
 
 module Async
-
   # abstract class GenericProc
   #   abstract def initialize(callable)
   #   abstract def call
@@ -39,12 +38,13 @@ module Async
         tmp = job.call
         @return_value = ReturnValue(typeof(tmp)).new(tmp)
         @state = PromiseState::RESOLVED
-        #TODO
+        # TODO
         # if tmp.is_a? Tuple
         # @then.dup.try &.call tmp
         # else
         # @then.dup.try &.call Tuple.new(tmp)
         # end
+
       rescue e
         @return_value = ReturnValue(typeof(e)).new(e)
         @state = PromiseState::REJECTED

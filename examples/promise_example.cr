@@ -67,9 +67,7 @@ value = await promise
 puts value       # Oh, no!
 puts value.class # Exception
 
-
 # CALLBACKS ARE STILL IN DEVELOPMENT AND NOT READY NOW
-
 
 # You can pass callbacks to you promise (Proc that will be executed AFTER your promise)
 # Success callback is added with .then and failure callback is added with .catch
@@ -88,7 +86,7 @@ sleep 3
 promise = FiberPromise.new(->{
   puts "Time to work..."
   sleep 2.seconds
-  reject "Coffee" #TODO : test without reject! :/
+  reject "Coffee" # TODO : test without reject! :/
 })
 promise.catch(->(e : Exception) { puts "I should go drink #{e.message}!" })
 
