@@ -96,8 +96,11 @@ puts value.class # Exception
 promise = FiberPromise.new(->{
   puts "Time for a nap..."
   sleep 2.seconds
+  resolve 42, "omg", "wtf"
 })
-promise.then(->{ puts "I had a good night! :)" })
+promise.then(->(i : Int32, str : String) { puts "i only got two arguments : #{i} and #{str}" })
+
+puts promise
 
 puts "I wonder if he's still sleeping..."
 sleep 3

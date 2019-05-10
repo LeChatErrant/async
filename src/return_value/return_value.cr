@@ -8,5 +8,9 @@ module Async
     def get
       @value
     end
+
+    def type
+      typeof(@value)
+    end
   end
 end

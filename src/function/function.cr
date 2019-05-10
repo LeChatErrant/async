@@ -1,12 +1,17 @@
 require "./generic_function.cr"
 
 module Async
-  class Function(T) < GenericFunction
-    def initialize(@callable : T)
+  class Function(*T)
+    def initialize(*@args : *T)
+      puts T
     end
 
-    def call(*args)
-      @callable.call *args
+    def wrap(callable)
+      {% begin %}
+        {% for i in 0...T.size %}
+          puts {{T[i]}}
+        {% end %}
+      {% end %}
     end
   end
 end
