@@ -168,6 +168,29 @@ puts promise.state  # RESOLVED
 puts promise  # #<Async::FiberPromise:object_id> RESOLVED
 ```
 
+Crystal can't infer the type of the returned value at compile time. For example, the following code won't compile
+
+```crystal
+value = await FiberPromise.new(->{ "I am a String" })
+puts value.split " "    # Compile time error, as Crystal is not sure that value is a String
+```
+
+You can fix this problem by enforcing the type with the `.as` method
+
+```crystal
+value = await FiberPromise.new(->{ resolve "I am a String" })
+puts value.as(String).split " "
+```
+
+But be careful! If the returned value was not a String, your code will crash
+
+Prefer using a typed `await` instead of the `.as` notation
+
+```crystal
+value = await String, FiberPromise.new(->{ resolve "I am a String and I know it!" })
+puts value.split " "
+```
+
 Of course, you can use the keyword `return` inside a Promise, and return different types of values, and multiple values at the same time
 
 ```crystal
@@ -450,6 +473,7 @@ pool.finalize
   - [x] Launching generic job in fiber at creation
   - [x] State and return value
   - [x] await blocking method implementation
+  - [x] typed await
   - [x] error throwing
   - [ ] .then and .catch
   - [ ] chaining .then and .catch

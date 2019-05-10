@@ -24,8 +24,6 @@ module Async
     @is_waiting = false
     @channel = Channel(Nil).new
     @return_value : GenericReturnValue = ReturnValue(Nil).new(nil)
-    @then : Nil | GenericFunction = nil
-    @catch : Nil | GenericFunction = nil
 
     # Capturing any type of proc and its variadic argument in a GenericJob (equivalent of C++ std::bind)
     private def capture(callable, args)
@@ -38,17 +36,9 @@ module Async
         tmp = job.call
         @return_value = ReturnValue(typeof(tmp)).new(tmp)
         @state = PromiseState::RESOLVED
-        # TODO
-        # if tmp.is_a? Tuple
-        # @then.dup.try &.call tmp
-        # else
-        # @then.dup.try &.call Tuple.new(tmp)
-        # end
-
       rescue e
         @return_value = ReturnValue(typeof(e)).new(e)
         @state = PromiseState::REJECTED
-        #        @catch.dup.try &.call Tuple.new(e.dup).dup
       ensure
         @channel.send(nil) if @is_waiting
       end
@@ -60,7 +50,7 @@ module Async
       else
         @is_waiting = true
         @channel.receive
-        @return_value.get
+        @return_value.try &.get
       end
     end
 
@@ -77,8 +67,12 @@ module Async
       # @then = capture(callable, {nil})
     end
 
-    def catch(callable)
-      @catch = Function(typeof(callable)).new(callable)
+    def catch(callable : T) forall T
+      #      @catch = Function(typeof(callable)).new(callable)
+      FiberPromise.new(->(this : self, callback : T) do
+        value = await this
+#        callable.call value
+      end, self, callable)
     end
 
     def finally(callable)

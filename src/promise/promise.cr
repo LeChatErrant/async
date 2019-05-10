@@ -3,6 +3,11 @@ module Async
     promise.wait
   end
 
+  def await(type : T.class, promise : Promise) forall T
+    puts T
+    promise.wait.as(T)
+  end
+
   macro resolve(*values)
     return {{*values}}
   end

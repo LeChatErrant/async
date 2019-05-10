@@ -38,6 +38,26 @@ puts promise.get    # Random number
 puts promise.state  # RESOLVED
 puts promise        # #<Async::FiberPromise:object_id> RESOLVED
 
+# Returned value type
+
+# Crystal can't deduce the type of an asynchronous returned value, of course
+
+# value = await FiberPromise.new(->{ "I am a String" })
+# puts value.split " "    # Compile time error
+
+# This code won't compile, because value can be of any types
+# To fix this problem, you can force the type with .as
+value = await FiberPromise.new(->{ resolve "I am a String" })
+puts value.as(String).split " "
+# Be careful!!
+# If the returned type is not what you expected (for example if the Promise here returned an int), you will compile but your program will crash, of course
+
+# Prefer using a typed await instead of the .as syntax
+# Typed await is an await taking a Class as first argument.
+# It basically does the same thing as (await Promise).as(Class)
+value = await String, FiberPromise.new(->{ resolve "I am a String and I know it!" })
+puts value.split " "
+
 # You can return inside a promise, and have different types of return value, or even multiple values at the same time!
 # But prefer using `resolve` (it basically does the same thing, but indicates you are resolving a Promise)
 conditionnal_proc = ->(toggle : Bool) do
@@ -82,12 +102,13 @@ promise.then(->{ puts "I had a good night! :)" })
 puts "I wonder if he's still sleeping..."
 sleep 3
 
-# A success callaback
+# A failure callback
 promise = FiberPromise.new(->{
   puts "Time to work..."
   sleep 2.seconds
   reject "Coffee" # TODO : test without reject! :/
 })
+
 promise.catch(->(e : Exception) { puts "I should go drink #{e.message}!" })
 
 puts "I wonder if he's still working..."
