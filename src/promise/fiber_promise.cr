@@ -80,12 +80,6 @@ module Async
     end
 
     def catch(callable : T) forall T
-      FiberPromise.new(->(this : self, callback : T) do
-        value = await this
-        #        tmp = Function.new(callback)
-        # tmp = callable.partial value.as(Exception)
-        #        tmp.call
-      end, self, callable)
     end
 
     def finally(callable)
