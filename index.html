@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.28.0">
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "";
+</script>
+
+  <meta id="repository-name" content="github.com/LeChatErrant/async">
+  <title>README - github.com/LeChatErrant/async</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="github.com/LeChatErrant/async/Async" data-name="async">
+      <a href="Async.html">Async</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/LeChatErrant/async/Async/AsyncLogger" data-name="async::asynclogger">
+      <a href="Async/AsyncLogger.html">AsyncLogger</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/LeChatErrant/async/Async/FiberPool" data-name="async::fiberpool">
+      <a href="Async/FiberPool.html">FiberPool</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/LeChatErrant/async/Async/FiberPromise" data-name="async::fiberpromise(*t, r)">
+      <a href="Async/FiberPromise.html">FiberPromise</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/LeChatErrant/async/Async/Function" data-name="async::function(*t)">
+      <a href="Async/Function.html">Function</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/LeChatErrant/async/Async/GenericReturnValue" data-name="async::genericreturnvalue">
+      <a href="Async/GenericReturnValue.html">GenericReturnValue</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/LeChatErrant/async/Async/PromiseState" data-name="async::promisestate">
+      <a href="Async/PromiseState.html">PromiseState</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/LeChatErrant/async/Async/ReturnValue" data-name="async::returnvalue(t)">
+      <a href="Async/ReturnValue.html">ReturnValue</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1>async</h1>
+
+<p><a href="https://travis-ci.org/LeChatErrant/async" target="_blank"><img src="https://travis-ci.org/LeChatErrant/async.svg?branch=master" alt="Build Status"/></a>
+<a href="https://github.com/LeChatErrant/async" target="_blank"><img src="http://githubbadges.com/star.svg?user=LeChatErrant&repo=async&style=default" alt="star this repo"/></a>
+<a href="https://github.com/LeChatErrant/async/fork" target="_blank"><img src="http://githubbadges.com/fork.svg?user=LeChatErrant&repo=async&style=default" alt="fork this repo"/></a>
+<a href="https://github.com/LeChatErrant/async/issues" target="_blank"><img src="https://img.shields.io/github/issues/LeChatErrant/async.svg" alt="GitHub Issues"/></a>
+<a href="https://GitHub.com/LeChatErrant/async/graphs/contributors/" target="_blank"><img src="https://img.shields.io/github/contributors/LeChatErrant/async.svg" alt="GitHub contributors"/></a>
+<img src="https://img.shields.io/badge/contributions-welcome-green.svg" alt="Contributions welcome"/>
+<a href="https://opensource.org/licenses/MIT" target="_blank"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"/></a></p>
+
+<blockquote>Promises based tools to manage asynchronous tasks in crystal</blockquote>
+
+<h3>Note from the creator</h3>
+
+<p>Hello guys! ;)</p>
+
+<p>This little baby is still under heavy development. You can see my roadmap below!</p>
+
+<p>This will be updated with the release of a stable version</p>
+
+<h2>Async</h2>
+
+<p>The purpose of Async is to offer a collection of usefull tools to handle asynchronous tasks in crystal.</p>
+
+<p>It comes with :</p>
+
+<ul><li>Promise, a wrapper allowing the user to do complex actions in only one line, such as</li><ul><li>Waiting for a task to be completed</li><li>Running task in background and get their result later</li><li>Assigning callbacks on success / error for an asynchronous task</li><li>and many many more! ;)</li></ul></ul>
+
+<ul><li>Pool, a tool based on a classic thread pool architecture. It allows the user to</li><ul><li>launch multiple asynchronous workers, always ready to execute tasks</li><li>add tasks to the pool. Workers will take it for you and execute it asynchronously in the bakckground!</li><li>control the execution of MANY jobs simultaneous with different methods</li><li>not to relaunch, for example, a Thread, each time you want to launch an action in the background : here, the workers are launched only ONE time, and are picking differents tasks!</li></ul></ul>
+
+<p>Every class comes with three different implementation, each time using a different type of worker :</p>
+
+<ul><li>Fibers : native crystal green thread, those you can invoke using <code>spawn</code></li><li>Threads : as crystal doesn't natively support threads for the moment, it is based on C bindings of pthread</li><li>Process : an entire process, with a lighter memory</li></ul>
+
+<hr/><p>Feel free to contribute, or to send tips !</p>
+
+<p>And don't hesitate to give a star if you like it, of course!</p>
+
+<hr/><h2>Installation</h2>
+
+<ol><li>Add the dependency to your <code>shard.yml</code>:</li></ol>
+
+<pre><code class="language-yaml">dependencies:
+  async:
+    github: LeChatErrant/async</code></pre>
+
+<ol><li>Run <code>shards install</code></li></ol>
+
+<h2>Documentation</h2>
+
+<blockquote>The documentation is not ready for now, as the project is still in development and subject to changes</blockquote>
+
+<p>https://lechaterrant.github.io/async/</p>
+
+<h2>Usage</h2>
+
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;async&quot;</span>
+
+<span class="k">include</span> <span class="t">Async</span></code></pre>
+
+<hr/><h3>Promise</h3>
+
+<blockquote>Promises are still currently in development! ;) I'm actually working on callbacks, and their Thread version will come soon</blockquote>
+
+<p>Promise is a wrapper around an asynchronous task. This task can be handled with a crystal Fiber, a Thread, or a Process, respectively with FiberPromise, ThreadPromise, and ProcessPromise.</p>
+
+<p>It is build on the Promise model of Javascript (ES6), and allow multiple action with it</p>
+
+<p>Each Promise has the same api (see Documentation), see below for an example using FiberPromise</p>
+
+<h4>Creating a Promise</h4>
+
+<p>Keep in mind that here, we're working with FiberPromise, so the asynchronous task is launched in a Fiber. With a ThreadPool, it would have been a Thread, and with a ProcessPool, an entire Process</p>
+
+<p>Using bracket notation</p>
+
+<pre><code class="language-crystal">promise <span class="o">=</span> <span class="t">FiberPromise</span>.<span class="k">new</span>(->{ puts <span class="s">&quot;Hello&quot;</span> })
+<span class="c"># Notice that creating a Promise immediatly launches the wrapped Proc</span></code></pre>
+
+<p>Using do/end notation</p>
+
+<pre><code class="language-crystal">promise <span class="o">=</span> <span class="t">FiberPromise</span>.<span class="k">new</span>(->(arg : <span class="t">String</span>) <span class="k">do</span>
+  puts arg
+<span class="k">end</span>, <span class="s">&quot;Hello&quot;</span>)
+<span class="c"># Notice that arguments are given after the Proc</span>
+<span class="c"># You code won&#39;t compile if you forget an argument</span></code></pre>
+
+<p>From an existing function</p>
+
+<pre><code class="language-crystal"><span class="k">def</span> <span class="m">say</span>(arg : <span class="t">String</span>)
+  puts arg
+<span class="k">end</span>
+
+proc_say <span class="o">=</span> ->say(<span class="t">String</span>)
+promise <span class="o">=</span> <span class="t">FiberPromise</span>.<span class="k">new</span>(proc_say, <span class="s">&quot;Hello)
+# Or simply
+promise = FiberPromise.new(-&gt;say(String), &quot;</span><span class="t">Hello</span><span class="s">&quot;)</code></pre>
+
+<h4>Waiting a Promise</h4>
+
+<p><code>await</code> block the execution until the given Proc is finished</p>
+
+<pre><code class="language-crystal">await <span class="t">FiberPromise</span>.<span class="k">new</span>(-> <span class="k">do</span>
+  puts <span class="s">&quot;time for a nap!&quot;</span>
+  sleep <span class="n">2</span>.seconds
+  puts <span class="s">&quot;zzz...&quot;</span>
+  sleep <span class="n">2</span>.seconds
+  puts <span class="s">&quot;I&#39;m awake! :)&quot;</span>
+<span class="k">end</span>)
+puts <span class="s">&quot;I&#39;m after await&quot;</span></code></pre>
+
+<p>It's usefull to wait for a specific task before your program continues</p>
+
+<p>Waiting for an already resolved Promise won't have any effect</p>
+
+<pre><code class="language-crystal">promise <span class="o">=</span> <span class="t">FiberPromise</span>.<span class="k">new</span>(->{ puts <span class="s">&quot;hello&quot;</span> })
+await promise</code></pre>
+
+<h4>Return value</h4>
+
+<p>Try to display a promise : you'll get its state!</p>
+
+<pre><code class="language-crystal">puts promise  <span class="c"># #&lt;Async::FiberPromise:object_id&gt; PENDING</span>
+puts promise.state  <span class="c"># PENDING</span>
+<span class="c"># .get will return it&#39;s state too until resolved</span>
+puts promise.get  <span class="c"># PENDING</span></code></pre>
+
+<p>A promise is said PENDING when currently executed, RESOLVED when finished, and REJECTED if an error was thrown</p>
+
+<p>When the promise is resolved, you can access its value</p>
+
+<pre><code class="language-crystal">promised_value <span class="o">=</span> await promise
+puts promised_value <span class="c"># returned value</span>
+puts promise.get  <span class="c"># returned value</span>
+puts promise.state  <span class="c"># RESOLVED</span>
+puts promise  <span class="c"># #&lt;Async::FiberPromise:object_id&gt; RESOLVED</span></code></pre>
+
+<p>Crystal can't infer the type of the returned value at compile time. For example, the following code won't compile</p>
+
+<pre><code class="language-crystal">value <span class="o">=</span> await <span class="t">FiberPromise</span>.<span class="k">new</span>(->{ <span class="s">&quot;I am a String&quot;</span> })
+puts value.split <span class="s">&quot; &quot;</span>    <span class="c"># Compile time error, as Crystal is not sure that value is a String</span></code></pre>
+
+<p>You can fix this problem by enforcing the type with the <code>.as</code> method</p>
+
+<pre><code class="language-crystal">value <span class="o">=</span> await <span class="t">FiberPromise</span>.<span class="k">new</span>(->{ resolve <span class="s">&quot;I am a String&quot;</span> })
+puts value.<span class="k">as</span>(<span class="t">String</span>).split <span class="s">&quot; &quot;</span></code></pre>
+
+<p>But be careful! If the returned value was not a String, your code will crash</p>
+
+<p>Prefer using a typed <code>await</code> instead of the <code>.as</code> notation</p>
+
+<pre><code class="language-crystal">value <span class="o">=</span> await <span class="t">String</span>, <span class="t">FiberPromise</span>.<span class="k">new</span>(->{ resolve <span class="s">&quot;I am a String and I know it!&quot;</span> })
+puts value.split <span class="s">&quot; &quot;</span></code></pre>
+
+<p>Of course, you can use the keyword <code>return</code> inside a Promise, and return different types of values, and multiple values at the same time</p>
+
+<pre><code class="language-crystal">conditionnal_proc <span class="o">=</span> ->(toggle : <span class="t">Bool</span>) <span class="k">do</span>
+  <span class="k">if</span> toggle
+    <span class="k">return</span> <span class="s">&quot;I received true! :)&quot;</span>
+  <span class="k">end</span>
+  <span class="k">return</span> <span class="n">false</span>, <span class="s">&quot;I received false... :(&quot;</span>
+<span class="k">end</span>
+puts await <span class="t">FiberPromise</span>.<span class="k">new</span>(conditionnal_proc, <span class="n">true</span>)  <span class="c"># I received true! :)</span>
+puts await <span class="t">FiberPromise</span>.<span class="k">new</span>(conditionnal_proc, <span class="n">false</span>) <span class="c"># {false, &quot;I received false... :(&quot;}</span></code></pre>
+
+<h4>Error handling</h4>
+
+<p>Errors can be thrown inside a Promise, and are caught for you : the return value will be the Exception raised</p>
+
+<pre><code class="language-crystal">promise <span class="o">=</span> <span class="t">FiberPromise</span>.<span class="k">new</span>(->{
+  raise <span class="s">&quot;Oh, no!&quot;</span>
+})
+
+value <span class="o">=</span> await promise
+puts value  <span class="c"># Oh, no!</span>
+puts value.<span class="k">class</span>  <span class="c"># Exception</span></code></pre>
+
+<h4>Resolve / Reject</h4>
+
+<p>When you're inside a promise, prefere using <code>resolve</code> and <code>reject</code>, instead of <code>return</code> and <code>raise</code>.</p>
+
+<p>Basically, it does the same thing, but indicates you're handling a Promise, and not something else</p>
+
+<pre><code class="language-crystal">conditionnal_proc <span class="o">=</span> ->(toggle : <span class="t">Bool</span>) <span class="k">do</span>
+  <span class="k">if</span> toggle
+    resolve <span class="s">&quot;I received true! :)&quot;</span>
+  <span class="k">end</span>
+  resolve <span class="n">false</span>, <span class="s">&quot;I received false... :(&quot;</span>
+<span class="k">end</span>
+puts await <span class="t">FiberPromise</span>.<span class="k">new</span>(conditionnal_proc, <span class="n">true</span>)  <span class="c"># I received true! :)</span>
+puts await <span class="t">FiberPromise</span>.<span class="k">new</span>(conditionnal_proc, <span class="n">false</span>) <span class="c"># {false, &quot;I received false... :(&quot;</span></code></pre>
+
+<p><code>reject</code> works the same way <code>raise</code> works, so you can reject either a String or an Exception</p>
+
+<pre><code class="language-crystal">promise <span class="o">=</span> <span class="t">FiberPromise</span>.<span class="k">new</span>(->{
+  reject <span class="s">&quot;Oh, no!&quot;</span>
+})
+
+value <span class="o">=</span> await promise
+puts value  <span class="c"># Oh, no!</span>
+puts value.<span class="k">class</span>  <span class="c"># Exception</span>
+
+promise <span class="o">=</span> <span class="t">FiberPromise</span>.<span class="k">new</span>(->{
+  reject <span class="t">Exception</span>.<span class="k">new</span>(<span class="s">&quot;Oh, no!&quot;</span>)
+})
+
+value <span class="o">=</span> await promise
+puts value  <span class="c"># Oh, no!</span>
+puts value.<span class="k">class</span>  <span class="c"># Exception</span></code></pre>
+
+<h4>Callbacks (.then / .catch)</h4>
+
+<blockquote>Promise callbacks are still under development! Don't use it for the moment, as it's still not stable.</blockquote>
+
+<p>Callbacks are pieces of code which will be executed AFTER your Promise, asynchronously. You can add a callback like this :</p>
+
+<pre><code class="language-crystal"><span class="t">FiberPromise</span>.<span class="k">new</span>(->{
+  <span class="c"># do something</span>
+}).<span class="k">then</span>(->{
+  <span class="c"># will be executed once the Promise is RESOLVED</span>
+})</code></pre>
+
+<p>.then is for adding callbacks on RESOlVE</p>
+
+<p>You can use .catch for adding callbacks on REJECT</p>
+
+<pre><code class="language-crystal"><span class="t">FiberPromise</span>.<span class="k">new</span>(->{
+  reject <span class="s">&quot;oh no!&quot;</span>
+}).catch((e : <span class="t">Exception</span>)->{
+  puts <span class="s">&quot;{e.message}&quot;</span>
+})</code></pre>
+
+<p>You can have callbacks on RESOLVE and REJECT simultaneously, to execute code depending on the promise state.</p>
+
+<pre><code class="language-crystal">promise <span class="o">=</span> <span class="t">FiberPromise</span>.<span class="k">new</span>(->{
+  <span class="c"># Do something</span>
+})
+
+promise.<span class="k">then</span>(->{ <span class="s">&quot;RESOLVED&quot;</span> })
+promise.catch(->{ <span class="s">&quot;REJECTED&quot;</span> })</code></pre>
+
+<p>Notice that adding a callback on a state will override the older one on the same state</p>
+
+<h4>.finally</h4>
+
+<p>With .finally, you can add callback which will be called in any case</p>
+
+<pre><code class="language-crystal"><span class="t">FiberPromise</span>.<span class="k">new</span>(->{
+  <span class="c"># Do something</span>
+}).finally({
+  <span class="c"># Will be called either if the Promise was RESOLVED or REJECTED</span>
+})</code></pre>
+
+<h4>Chaining callbacks</h4>
+
+<p>Adding a callback return a new Promise object</p>
+
+<p>It means you can chain callbacks, like this :</p>
+
+<pre><code class="language-crystal"><span class="t">FiberPromise</span>.<span class="k">new</span>(->{
+  <span class="c"># Do something</span>
+}).<span class="k">then</span>(->{
+  <span class="s">&quot;RESOLVED&quot;</span>
+}).catch(->{
+  <span class="s">&quot;REJECTED&quot;</span>
+}).finally(->{
+  <span class="s">&quot;ANY CASE&quot;</span>
+})</code></pre>
+
+<p>If, for example, an error is thrown, every THEN blocks will be skipped until a CATCH or FINALLY block is found</p>
+
+<pre><code class="language-crystal"><span class="t">FiberPromise</span>.<span class="k">new</span>(->{
+  reject <span class="s">&quot;Oh no!&quot;</span>
+}).<span class="k">then</span>(->{
+  <span class="s">&quot;I won&#39;t be called if an error is thrown...&quot;</span>
+}).catch(->{
+  <span class="s">&quot;Gotcha!&quot;</span>
+})</code></pre>
+
+<p>With this, you can totally control your asynchronous flow :) enjoy!</p>
+
+<hr/><h3>Pool</h3>
+
+<p>Async offer you different kinds of workers pool :</p>
+
+<ul><li>FiberPool</li><li>ThreadPool (In developpement)</li><li>ProcessPool (Not implemented yet)</li></ul>
+
+<p>Each pool has the same api (see Documentation)</p>
+
+<p>Here is an example using a FiberPool, but this works with any kind of pool!</p>
+
+<h4>Creating a pool</h4>
+
+<p>Keep in mind that here, a worker is a crystal Fiber. With a ThreadPool, it would have been a Thread, and with a ProcessPool, an entire Process</p>
+
+<pre><code class="language-crystal">pool <span class="o">=</span> <span class="t">FiberPool</span>.<span class="k">new</span>(<span class="n">3</span>) <span class="c"># Create and launch a pool with 3 workers</span></code></pre>
+
+<h4>Adding jobs</h4>
+
+<p>You can add jobs by multiple way :</p>
+
+<ul><li>From a block, using do/end notation</li></ul>
+
+<pre><code class="language-crystal">pool.push(-><span class="k">do</span>
+  puts <span class="s">&quot;hello&quot;</span>
+<span class="k">end</span>)</code></pre>
+
+<ul><li>From a block, using bracket notation</li></ul>
+
+<pre><code class="language-crystal">pool.push(->(i : <span class="t">Int32</span>) { puts i }, <span class="n">12</span>)
+<span class="c"># Notice that arguments are givent after the Proc!</span>
+<span class="c"># If you forget one argument, your code won&#39;t compile</span></code></pre>
+
+<ul><li>From an existing function</li></ul>
+
+<pre><code class="language-crystal"><span class="k">def</span> <span class="m">my_function</span>(x : <span class="t">Int32</span>, y : <span class="t">Int32</span>)
+  sleep <span class="n">1</span>.seconds
+  puts x
+  sleep <span class="n">3</span>.seconds
+  puts y
+  <span class="s">&quot;hello&quot;</span>
+<span class="k">end</span>
+
+my_function_proc <span class="o">=</span> ->my_function(<span class="t">Int32</span>, <span class="t">Int32</span>)
+pool.push(my_function_proc, <span class="n">1</span>, <span class="n">2</span>)
+<span class="c"># Or simply</span>
+pool.push(->my_function(<span class="t">Int32</span>, <span class="t">Int32</span>), <span class="n">1</span>, <span class="n">2</span>)</code></pre>
+
+<ul><li>You can add a job with the <code>wait_for</code> method too. It'll block the execution until a worker has picked and executed this job</li></ul>
+
+<pre><code class="language-crystal">fiber_pool.wait_for(->{
+  puts <span class="s">&quot;Let&#39;s sleep a bit&quot;</span>
+  sleep <span class="n">3</span>.seconds
+  puts <span class="s">&quot;I&#39;m done with sleeping!&quot;</span>
+})
+<span class="c"># Execution will continue once &quot;I&#39;m done with sleeping!&quot; have been displayed</span></code></pre>
+
+<h4>Pool control</h4>
+
+<p>Async give you some way to control your workers pool :</p>
+
+<ul><li>The <code>wait</code> method, blocking the execution until every jobs have been executed</li></ul>
+
+<pre><code class="language-crystal">pool.wait
+<span class="c"># Execution will continue once every jobs will be finished</span></code></pre>
+
+<ul><li>The <code>finish</code> method, blocking the execution until every jobs have been executed, and then kill all workers. Notice that you can't use the pool after this, as it's a way to destroy it</li></ul>
+
+<pre><code class="language-crystal">pool.finish
+<span class="c"># Execution blocked until every jobs will be finished and workers killed</span></code></pre>
+
+<ul><li>The <code>stop</code> method. Once stop have been called, the pool will finish all currently executed jobs, when kill every workers. Notice that all the pending jobs will be lost! It's usefull when you want to stop the pool without executing all queues tasks. Stop is not a blocking call, but you can't use the pool after this, as it's a way to destroy it</li></ul>
+
+<pre><code class="language-crystal">pool.stop
+<span class="c"># Execution not blocked, currently started jobs finishing in background, pending jobs lost, and fibers killed in background</span></code></pre>
+
+<ul><li>The <code>terminate</code> method, killing all workers instataneously, without finishing any job!</li></ul>
+
+<pre><code class="language-crystal"><span class="c"># Unfortunatly, not implemented for the moment... Sorry &lt;3</span></code></pre>
+
+<ul><li>The <code>finalize</code> is used to destroy the pool : it will finish in the background every jobs, and kill workers. It's the equivalent of the <code>finish</code> method, but without stoping the execution. As it's a way to destroy the pool, you can't use it after this</li></ul>
+
+<pre><code class="language-crystal">pool.finalize</code></pre>
+
+<h2>TODO</h2>
+
+<ul><li>[ ] FiberPool</li><ul><li>[x] Trying to take any form of procs as arguments (templated Job class)</li><li>[x] Simple generic pool with queued jobs</li><li>[x] Sleeping fibers, able to be awoken by the FiberPool</li><li>[x] Fully asynchronous functioning</li><li>[x] "Joining" fibers at FiberPool destruction. Offering a way to "kill" fibers manually</li><li>[ ] Return value of fibers</li><li>[x] wait and wait_for methods (respectively, blocking call waiting for ALL jobs to finish, and a blocking call waiting for the job given as parameter to finish)</li><li>[x] documented api</li></ul></ul>
+
+<ul><li>[ ] ThreadPool</li><ul><li>[ ] Abstract class above FiberPool and ThreadPool, to make users able to substitute fibers by threads</li><li>[ ] Thread class, an encapsulation of pthread_t</li><li>[ ] Mutex class, an encapsulation of pthread_mutex_t</li><li>[ ] ConditionVariable class, an encapsulation of pthread_cond_t</li><li>[ ] SafeQueue, wrapping Dequeu and Mutex</li><li>[ ] ThreadChannel, wrapping SafeQueue and ConditionVariable</li><li>[ ] ThreadWorker, the worker launched in each threads at the ThreadPool creation! It is sleeping when no jobs are in the ThreadChannel, and awoken when some job is pushed in the ThreadPool</li><li>[ ] Threads joining</li><li>[ ] Threads return value</li></ul></ul>
+
+<ul><li>[ ] ProcessPool</li><ul><li>[ ] Roadmap to be defined!</li></ul></ul>
+
+<ul><li>[ ] FiberPromise</li><ul><li>[x] Launching generic job in fiber at creation</li><li>[x] State and return value</li><li>[x] await blocking method implementation</li><li>[x] typed await</li><li>[x] error throwing</li><li>[ ] .then and .catch</li><li>[ ] chaining .then and .catch</li><li>[ ] .finally</li><li>[ ] arguments depending on the callback (possibility to take 0 arguments for a .catch, for example)</li><li>[ ] adding multiples callbacks on the same event</li><li>[x] resolve and reject keywords</li><li>[ ] documented code</li><li>[ ] specs</li></ul></ul>
+
+<ul><li>[ ] ThreadPromise</li><ul><li>[ ] Roadmap to be defined!</li></ul></ul>
+
+<ul><li>[ ] ProcessPromise</li><ul><li>[ ] Roadmap to be defined!</li></ul></ul>
+
+<h2>Contributing</h2>
+
+<ol><li>Fork it (&lt;https://github.com/LeChatErrant/async/fork>)</li><li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li><li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li><li>Push to the branch (<code>git push origin my-new-feature</code>)</li><li>Create a new Pull Request</li></ol>
+
+<h2>Contributors</h2>
+
+<ul><li><a href="https://github.com/LeChatErrant" target="_blank">LeChatErrant</a> - creator and maintainer</li></ul>
+</div>
+</body>
+</html>
